@@ -7,8 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping({""})
 public class MainController {
+    private final Order order;
+
+    public MainController(Order order) {
+        this.order = order;
+    }
+
     @GetMapping({""})
     public String tempPage() {
+        // Simulate placing an order
+        order.setStatus("Order Placed");
         return "tempPage";
     }
 }
