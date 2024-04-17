@@ -1,0 +1,7 @@
+services:
+  track-order:
+    build: .
+    container_name: trackorder
+    ports:
+      - 8081:8081
+    restart: always
