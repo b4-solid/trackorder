@@ -1,5 +1,4 @@
 package id.ac.ui.cs.advpro.trackorder.order;
-
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,29 +19,35 @@ public class Order {
 
     @Getter
     private String status;
-
     public Order(String orderId) {
-        // Constructor implementation
+        this.orderId = orderId;
+        this.status = "NEW";
     }
 
     public void addObserver(OrderObserver observer) {
-        // Add observer implementation
+        observers.add(observer);
     }
 
     public void removeObserver(OrderObserver observer) {
-        // Remove observer implementation
+        observers.remove(observer);
     }
 
     public void setStatus(String status) {
-        // Set status implementation
+        this.status = status;
+        notifyObservers();
     }
 
     public void updateStatus() {
-        // Update status implementation
+        int currentIndex = statusList.indexOf(status);
+        if (currentIndex < statusList.size() - 1) {
+            setStatus(statusList.get(currentIndex + 1));
+        }
     }
 
     private void notifyObservers() {
-        // Notify observers implementation
+        for (OrderObserver observer : observers) {
+            observer.update(this);
+        }
     }
 }
 
