@@ -30,60 +30,23 @@ public class OrderController {
 
     @RequestMapping(value = "/api/order", method = RequestMethod.GET)
     public ResponseEntity getAllOrders() {
-        ResponseEntity responseEntity = null;
-        try {
-            List<Order> orders = orderService.getAllOrders();
-            responseEntity = ResponseEntity.ok(orders);
-        } catch (Exception e) {
-            System.out.println("Error in get all orders!");
-            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
+        // Implementation
     }
 
     @RequestMapping(value = "/api/order", method = RequestMethod.POST)
     public ResponseEntity addOrder(@RequestBody Order order) {
-        ResponseEntity responseEntity = null;
-
-        try {
-            orderService.add(order);
-            responseEntity = ResponseEntity.ok().build();
-        } catch (Exception e) {
-            System.out.println("Error in add order!");
-            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return responseEntity;
+        // Implementation
     }
 
     @RequestMapping(value = "/api/order/{orderId}", method = RequestMethod.DELETE)
     public ResponseEntity deleteOrder(@PathVariable String orderId) {
-        ResponseEntity responseEntity = null;
-
-        try {
-            orderService.delete(orderId);
-            responseEntity = ResponseEntity.ok().build();
-        } catch (Exception e) {
-            System.out.println("Error in delete order!");
-            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return responseEntity;
+        // Implementation
     }
 
     @RequestMapping(value = "/api/order", method = RequestMethod.PUT)
     public ResponseEntity updateOrder(@RequestBody Order order) {
-        ResponseEntity responseEntity = null;
-
-        try {
-            orderService.update(order);
-            responseEntity = ResponseEntity.ok().build();
-        } catch (Exception e) {
-            System.out.println("Error in update order!");
-            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return responseEntity;
+        // Implementation
     }
 
 }
+
