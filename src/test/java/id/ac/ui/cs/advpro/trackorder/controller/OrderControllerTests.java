@@ -33,7 +33,7 @@ public class OrderControllerTests {
     public void testGetAllOrders() {
         // Mocking
         List<Order> orders = Arrays.asList(new Order(), new Order());
-        when(orderService.getAllOrders()).thenReturn(orders);
+        when(orderService.findAllOrder()).thenReturn(orders);
 
         // Testing
         ResponseEntity responseEntity = orderController.getAllOrders();
@@ -49,7 +49,7 @@ public class OrderControllerTests {
         // Testing
         ResponseEntity responseEntity = orderController.addOrder(order);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        verify(orderService, times(1)).add(order);
+        verify(orderService, times(1)).addOrder(order);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class OrderControllerTests {
         // Testing
         ResponseEntity responseEntity = orderController.deleteOrder(orderId);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        verify(orderService, times(1)).delete(orderId);
+        verify(orderService, times(1)).deleteOrder(orderId);
     }
 
     @Test
@@ -71,6 +71,6 @@ public class OrderControllerTests {
         // Testing
         ResponseEntity responseEntity = orderController.updateOrder(order);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        verify(orderService, times(1)).update(order);
+        verify(orderService, times(1)).updateOrder(order);
     }
 }
