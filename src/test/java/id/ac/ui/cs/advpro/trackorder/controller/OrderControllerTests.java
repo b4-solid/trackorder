@@ -55,7 +55,7 @@ public class OrderControllerTests {
     @Test
     public void testDeleteOrder() {
         // Mocking
-        String orderId = "123";
+        Long orderId = 123;
 
         // Testing
         ResponseEntity responseEntity = orderController.deleteOrder(orderId);
