@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 
 
-public class OrderTest {
+public class OrderTests {
     private Order order;
 
     @BeforeEach
