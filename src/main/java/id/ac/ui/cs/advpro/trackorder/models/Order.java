@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Arrays;
 
 @Getter
-@NoArgsConstructor
 @Entity()
 @Table(name="orders")
 public class Order {
@@ -60,9 +59,9 @@ public class Order {
     public Order(long orderId, long userId, long productId, long transactionId, long amount){
         this.orderId=orderId;
         this.userId=userId;
-         this.productId=productId;
-         this.transactionId=transactionId;
-         this.amount=amount;
+        this.productId=productId;
+        this.transactionId=transactionId;
+        this.amount=amount;
     }
 
     public void addObserver(OrderObserver observer) {
@@ -91,4 +90,5 @@ public class Order {
         }
     }
 }
+
 
