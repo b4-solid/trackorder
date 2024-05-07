@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advpro.trackorder;
 
-import id.ac.ui.cs.advpro.trackorder.order.Order;
-import id.ac.ui.cs.advpro.trackorder.order.OrderObserver;
+import id.ac.ui.cs.advpro.trackorder.models.Order;
+import id.ac.ui.cs.advpro.trackorder.models.OrderObserver;
 
 import java.util.ArrayList;
 import java.util.List;

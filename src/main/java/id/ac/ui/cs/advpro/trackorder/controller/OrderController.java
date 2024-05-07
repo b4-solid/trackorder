@@ -1,8 +1,13 @@
 package id.ac.ui.cs.advpro.trackorder.controller;
 
+<<<<<<< Updated upstream
 import id.ac.ui.cs.advpro.trackorder.order.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+=======
+import id.ac.ui.cs.advpro.trackorder.models.Order;
+import org.springframework.http.HttpStatus;
+>>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -30,23 +36,66 @@ public class OrderController {
 
     @RequestMapping(value = "/api/order", method = RequestMethod.GET)
     public ResponseEntity getAllOrders() {
-        // Implementation
+        ResponseEntity responseEntity = null;
+        try {
+            List<Order> orders = orderService.findAllOrder();
+            responseEntity = ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            System.out.println("Error in get all orders!");
+            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
     }
 
     @RequestMapping(value = "/api/order", method = RequestMethod.POST)
     public ResponseEntity addOrder(@RequestBody Order order) {
-        // Implementation
+        ResponseEntity responseEntity = null;
+
+        try {
+            orderService.addOrder(order);
+            responseEntity = ResponseEntity.ok().build();
+        } catch (Exception e) {
+            System.out.println("Error in add order!");
+            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return responseEntity;
     }
 
+
     @RequestMapping(value = "/api/order/{orderId}", method = RequestMethod.DELETE)
+<<<<<<< Updated upstream
     public ResponseEntity deleteOrder(@PathVariable String orderId) {
         // Implementation
+=======
+    public ResponseEntity deleteOrder(@PathVariable long orderId) {
+        ResponseEntity responseEntity = null;
+
+        try {
+            orderService.deleteOrder(orderId);
+            responseEntity = ResponseEntity.ok().build();
+        } catch (Exception e) {
+            System.out.println("Error in delete order!");
+            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return responseEntity;
+>>>>>>> Stashed changes
     }
 
     @RequestMapping(value = "/api/order", method = RequestMethod.PUT)
     public ResponseEntity updateOrder(@RequestBody Order order) {
-        // Implementation
+        ResponseEntity responseEntity = null;
+
+        try {
+            orderService.updateOrder(order);
+            responseEntity = ResponseEntity.ok().build();
+        } catch (Exception e) {
+            System.out.println("Error in update order!");
+            responseEntity = ResponseEntity.badRequest().body(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return responseEntity;
     }
 
 }
-
