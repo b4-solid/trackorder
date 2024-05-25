@@ -72,7 +72,7 @@ public class OrderController {
     }
 
     @PutMapping("/{orderId}")
-    public ResponseEntity<Object> updateOrder(@RequestBody OrderModel order) {
+    public ResponseEntity<Object> updateOrder(@PathVariable Long orderId, @RequestBody OrderModel order) {
         ResponseEntity<Object> responseEntity = null;
 
         try {
@@ -81,7 +81,6 @@ public class OrderController {
                 responseEntity = ResponseEntity.ok(addedOrder);
             }
         } catch (Exception e) {
-            System.out.println();
             responseEntity = ResponseEntity.badRequest().body(e.getMessage());
         }
 
