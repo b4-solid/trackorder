@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import id.ac.ui.cs.advpro.trackorder.models.Order;
 import id.ac.ui.cs.advpro.trackorder.repository.OrderRepository;
-import id.ac.ui.cs.advpro.trackorder.service.OrderService;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -22,7 +21,6 @@ public class OrderServiceImpl implements OrderService {
     public Order addOrder(Order transaction) {
         return repository.save(transaction);
     };
-
 
     //R(ead)
     @Override
