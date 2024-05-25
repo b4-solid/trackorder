@@ -31,7 +31,7 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @RequestMapping(value = "/api/order", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/order/getall", method = RequestMethod.GET)
     public ResponseEntity getAllOrders() {
         ResponseEntity responseEntity = null;
         try {
@@ -44,7 +44,7 @@ public class OrderController {
         return responseEntity;
     }
 
-    @RequestMapping(value = "/api/order", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/order/add", method = RequestMethod.POST)
     public ResponseEntity addOrder(@RequestBody Order order) {
         ResponseEntity responseEntity = null;
 
@@ -60,7 +60,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "/api/order/{orderId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/order/delete/{orderId}", method = RequestMethod.DELETE)
     public ResponseEntity deleteOrder(@PathVariable Long orderId) {
         // Implementation
             ResponseEntity responseEntity = null;
@@ -76,7 +76,7 @@ public class OrderController {
             return responseEntity;
         }
 
-        @RequestMapping(value = "/api/order", method = RequestMethod.PUT)
+        @RequestMapping(value = "/api/order/update/{orderId}", method = RequestMethod.PUT)
         public ResponseEntity updateOrder(@RequestBody Order order) {
             ResponseEntity responseEntity = null;
 
