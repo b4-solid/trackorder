@@ -16,7 +16,7 @@ public class SeedingController {
 
     @GetMapping("/orders")
     public ResponseEntity<String> seedOrders() {
-        // Method implementation
-        return null;
+        orderSeedingService.seedOrders();
+        return ResponseEntity.ok("Orders seeded successfully.");
     }
 }
