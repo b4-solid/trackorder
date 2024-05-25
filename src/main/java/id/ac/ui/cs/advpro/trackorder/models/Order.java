@@ -5,11 +5,12 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
-@Entity
-@Table(name = "orders")
+@Entity()
+@Table(name="orders")
 public class Order {
 
-    @Id
+    // username productId transactionId, all long, all NOT NULL kecuali transaction NULL kalau belum check out
+    @Id // tambahin ini kalo PK
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "id")
     @NotNull
@@ -43,17 +44,25 @@ public class Order {
     @Getter
     private String status;
 
+
     public Order() {
-        // Constructor implementation
+        this.status = "NEW";
     }
 
-    public Order(long orderId, long userId, long productId, long transactionId, long amount) {
-        // Constructor implementation
+    public Order(long orderId, long userId, long productId, long transactionId, long amount){
+        this.orderId=orderId;
+        this.userId=userId;
+        this.productId=productId;
+        this.transactionId=transactionId;
+        this.amount=amount;
+        this.status = "NEW";
     }
 
     public void updateStatus() {
-        // Method implementation
+        if (status.equals("NEW")) {
+            status = "IN PROGRESS";
+        } else if (status.equals("IN PROGRESS")) {
+            status = "COMPLETED";
+        }
     }
 }
-
-
