@@ -14,6 +14,7 @@ public interface OrderService {
     List<OrderModel> findAllOrder();
     Optional<OrderModel> findById(Long id);
     List<OrderModel> findByUsername(String username);
+    List<OrderModel> findByUsernameAdmin(String username);
     List<OrderModel> findByTransactionId(String transactionId);
 
     //U(pdate)

@@ -48,6 +48,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderModel> findByUsernameAdmin(String username) {
+        return repository.findByUsernameAdmin(username);
+    }
+
+    @Override
     public List<OrderModel> findByTransactionId(String transactionId) {
         return repository.findByTransactionId(transactionId);
     }

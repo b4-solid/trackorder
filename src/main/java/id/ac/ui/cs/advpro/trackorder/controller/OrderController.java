@@ -28,6 +28,18 @@ public class OrderController {
         return responseEntity;
     }
 
+    @GetMapping("/user/{username}")
+    public ResponseEntity<Object> getOrderByUsernameAdmin(@PathVariable String username) {
+        ResponseEntity<Object> responseEntity = null;
+        try {
+            List<OrderModel> orders = orderService.findByUsernameAdmin(username);
+            responseEntity = ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            responseEntity = ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return responseEntity;
+    }
+
     @GetMapping("/{username}")
     public ResponseEntity<Object> getOrderByUsername(@PathVariable String username) {
         ResponseEntity<Object> responseEntity = null;
