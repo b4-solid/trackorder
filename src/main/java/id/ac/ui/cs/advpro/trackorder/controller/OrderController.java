@@ -71,6 +71,18 @@ public class OrderController {
         return responseEntity;
     }
 
+    @GetMapping("/product/{productId}/{remainder}")
+    public ResponseEntity<Object> getOrderByProductIdAndAmountGreaterThan(@PathVariable Long productId, @PathVariable Long remainder) {
+        ResponseEntity<Object> responseEntity = null;
+        try {
+            List<OrderModel> orders = orderService.findByProductIdAndAmountGreaterThan(productId, remainder);
+            responseEntity = ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            responseEntity = ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return responseEntity;
+    }
+
     @PostMapping()
     public ResponseEntity<Object> addOrder(@RequestBody OrderModel order) {
         if (order.getAmount() == 0) {
