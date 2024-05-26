@@ -133,6 +133,7 @@ public class OrderControllerTests {
         assertEquals(2, responseEntity.getBody().size());
     }
 
+    @SuppressWarnings("unused")
     @Test
     void findAllRequests_ReturnsNotFound() throws ExecutionException, InterruptedException {
         List<OrderModel> emptyRequests = Collections.emptyList();
