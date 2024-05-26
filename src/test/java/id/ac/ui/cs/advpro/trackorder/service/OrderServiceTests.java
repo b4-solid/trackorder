@@ -16,6 +16,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import java.util.Collections;
+
 
 public class OrderServiceTests {
 
@@ -40,6 +42,39 @@ public class OrderServiceTests {
         assertNotNull(result);
         assertEquals(order, result);
         verify(orderRepository, times(1)).save(order);
+    }
+
+    @Test
+    public void testFindByUsername() {
+        String username = "testuser";
+        List<OrderModel> expectedOrders = Collections.emptyList();
+        when(orderRepository.findByUsername(username)).thenReturn(expectedOrders);
+
+        List<OrderModel> actualOrders = orderService.findByUsername(username);
+
+        assertEquals(expectedOrders, actualOrders);
+    }
+
+    @Test
+    public void testFindByUsernameAdmin() {
+        String username = "admin";
+        List<OrderModel> expectedOrders = Collections.emptyList();
+        when(orderRepository.findByUsernameAdmin(username)).thenReturn(expectedOrders);
+
+        List<OrderModel> actualOrders = orderService.findByUsernameAdmin(username);
+
+        assertEquals(expectedOrders, actualOrders);
+    }
+
+    @Test
+    public void testFindByTransactionId() {
+        String transactionId = "txn123";
+        List<OrderModel> expectedOrders = Collections.emptyList();
+        when(orderRepository.findByTransactionId(transactionId)).thenReturn(expectedOrders);
+
+        List<OrderModel> actualOrders = orderService.findByTransactionId(transactionId);
+
+        assertEquals(expectedOrders, actualOrders);
     }
 
     @Test
