@@ -8,15 +8,20 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 //import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -38,21 +43,6 @@ public class OrderControllerTests {
         this.mockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
     }
 
-    @Test
-    public void testGetAllOrders() throws Exception {
-        List<OrderModel> orders = new ArrayList<>();
-        orders.add(new OrderModel());
-        orders.add(new OrderModel());
-
-        when(orderService.findAllOrder()).thenReturn(orders);
-
-        mockMvc.perform(get("/orders")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(2));
-
-        verify(orderService, times(1)).findAllOrder();
-    }
 
     @Test
     public void testDeleteOrder() throws Exception {
@@ -129,16 +119,32 @@ public class OrderControllerTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.amount").value(200));
     }
+    @Test
+    void getAllOrders_ReturnsList() throws ExecutionException, InterruptedException {
+        List<OrderModel> orders = new ArrayList<>();
+        orders.add(new OrderModel());
+        orders.add(new OrderModel());
+        when(orderService.findAllOrder()).thenReturn(orders);
+
+        CompletableFuture<ResponseEntity<List<OrderModel>>> futureResponseEntity = orderController.getAllOrders();
+        ResponseEntity<List<OrderModel>> responseEntity = futureResponseEntity.get();
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(2, responseEntity.getBody().size());
+    }
 
     @Test
-    public void testGetAllOrdersException() throws Exception {
-        when(orderService.findAllOrder()).thenThrow(new RuntimeException("Exception occurred"));
+    void findAllRequests_ReturnsNotFound() throws ExecutionException, InterruptedException {
+        List<OrderModel> emptyRequests = Collections.emptyList();
+        CompletableFuture<ResponseEntity<List<OrderModel>>> notFoundResponse = CompletableFuture.completedFuture(ResponseEntity.notFound().build());
+        when(orderService.findAllOrder()).thenReturn(emptyRequests);
 
-        mockMvc.perform(get("/orders"))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-                .andExpect(content().string("Exception occurred"));
+        CompletableFuture<ResponseEntity<List<OrderModel>>> futureResponseEntity = orderController.getAllOrders();
+        ResponseEntity<List<OrderModel>> responseEntity = futureResponseEntity.get();
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
+
 
     @Test
     public void testGetOrderByUsernameAdminException() throws Exception {
@@ -149,6 +155,7 @@ public class OrderControllerTests {
                 .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(content().string("Exception occurred"));
     }
+
 
     @Test
     public void testGetOrderByUsernameException() throws Exception {
