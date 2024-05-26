@@ -36,7 +36,6 @@ public class SeedingControllerTests {
 
     @Test
     public void testSeedOrders() throws Exception {
-        doNothing().when(seedingService).seedOrders();
 
         mockMvc.perform(get("/api/seed/orders")
                         .contentType(MediaType.APPLICATION_JSON))
