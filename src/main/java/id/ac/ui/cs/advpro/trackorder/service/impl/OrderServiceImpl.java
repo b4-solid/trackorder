@@ -18,17 +18,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     //C(reate)
+//    @Override
+//    public OrderModel addOrder(OrderModel transaction) {
+//        Optional<OrderModel> existingOrder = repository.findbyProductIdAndUsername(transaction.getProductId(), transaction.getUsername());
+//
+//        if (existingOrder.isPresent()) {
+//            transaction.setOrderId(existingOrder.get().getOrderId());
+//            transaction.setAmount(existingOrder.get().getAmount() + transaction.getAmount());
+//        }
+//
+//        return repository.save(transaction);
+//    };
     @Override
     public OrderModel addOrder(OrderModel transaction) {
-        Optional<OrderModel> existingOrder = repository.findbyProductIdAndUsername(transaction.getProductId(), transaction.getUsername());
+        return repository.findbyProductIdAndUsername(transaction.getProductId(), transaction.getUsername())
+                .map(existingOrder -> {
+                    existingOrder.setAmount(existingOrder.getAmount() + transaction.getAmount());
+                    return repository.save(existingOrder);
+                })
+                .orElseGet(() -> repository.save(transaction));
+    }
 
-        if (existingOrder.isPresent()) {
-            transaction.setOrderId(existingOrder.get().getOrderId());
-            transaction.setAmount(existingOrder.get().getAmount() + transaction.getAmount());
-        }
-
-        return repository.save(transaction);
-    };
 
 
     //R(ead)

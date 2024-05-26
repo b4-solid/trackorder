@@ -70,21 +70,35 @@ public class OrderController {
         return responseEntity;
     }
 
+//    @PostMapping()
+//    public ResponseEntity<Object> addOrder(@RequestBody OrderModel order) {
+//        ResponseEntity<Object> responseEntity = null;
+//
+//        try {
+//            if (order.getAmount() != 0) {
+//                OrderModel addedOrder = orderService.addOrder(order);
+//                responseEntity = ResponseEntity.ok(addedOrder);
+//            }
+//        } catch (Exception e) {
+//            System.out.println();
+//            responseEntity = ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//
+//        return responseEntity;
+//    }
+
     @PostMapping()
     public ResponseEntity<Object> addOrder(@RequestBody OrderModel order) {
-        ResponseEntity<Object> responseEntity = null;
-
-        try {
-            if (order.getAmount() != 0) {
-                OrderModel addedOrder = orderService.addOrder(order);
-                responseEntity = ResponseEntity.ok(addedOrder);
-            }
-        } catch (Exception e) {
-            System.out.println();
-            responseEntity = ResponseEntity.badRequest().body(e.getMessage());
+        if (order.getAmount() == 0) {
+            return ResponseEntity.badRequest().body("Order amount cannot be zero");
         }
 
-        return responseEntity;
+        try {
+            OrderModel addedOrder = orderService.addOrder(order);
+            return ResponseEntity.ok(addedOrder);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{orderId}")
