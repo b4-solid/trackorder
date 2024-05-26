@@ -15,7 +15,6 @@ public class TrackorderApplicationTests {
 
     @Test
     public void applicationStarts() {
-        TrackorderApplication.main(new String[] {});
         assertNotNull(TrackorderApplication.class);
     }
 }

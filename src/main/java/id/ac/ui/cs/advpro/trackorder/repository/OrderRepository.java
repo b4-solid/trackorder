@@ -14,6 +14,9 @@ public interface OrderRepository extends JpaRepository<OrderModel, Long>{
     @Query("SELECT o FROM OrderModel o WHERE o.productId = :productId AND o.username = :username AND o.transactionId IS NULL")
     Optional<OrderModel> findbyProductIdAndUsername(long productId, String username);
 
+    @Query("SELECT o FROM OrderModel o WHERE o.username = :username")
+    List<OrderModel> findByUsernameAdmin(String username);
+
     @Query("SELECT o FROM OrderModel o WHERE o.username = :username AND o.transactionId IS NULL")
     List<OrderModel> findByUsername(String username);
 
