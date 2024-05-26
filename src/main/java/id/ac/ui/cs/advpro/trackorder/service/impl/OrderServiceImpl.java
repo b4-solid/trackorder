@@ -17,18 +17,6 @@ public class OrderServiceImpl implements OrderService {
         this.repository = repository;
     }
 
-    //C(reate)
-//    @Override
-//    public OrderModel addOrder(OrderModel transaction) {
-//        Optional<OrderModel> existingOrder = repository.findbyProductIdAndUsername(transaction.getProductId(), transaction.getUsername());
-//
-//        if (existingOrder.isPresent()) {
-//            transaction.setOrderId(existingOrder.get().getOrderId());
-//            transaction.setAmount(existingOrder.get().getAmount() + transaction.getAmount());
-//        }
-//
-//        return repository.save(transaction);
-//    };
     @Override
     public OrderModel addOrder(OrderModel transaction) {
         return repository.findbyProductIdAndUsername(transaction.getProductId(), transaction.getUsername())
@@ -45,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderModel> findAllOrder() {
         return repository.findAll();
-    };
+    }
 
     @Override
     public Optional<OrderModel> findById(Long id) {
@@ -78,10 +66,10 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return repository.save(transaction);
-    };
+    }
 
     //D(elete)
     public void deleteOrder(Long id) {
         repository.deleteById(id);
-    };
+    }
 }
