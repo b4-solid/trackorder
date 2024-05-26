@@ -5,8 +5,11 @@ import id.ac.ui.cs.advpro.trackorder.models.OrderModel;
 import id.ac.ui.cs.advpro.trackorder.service.OrderService;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,16 +19,18 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @GetMapping()
-    public ResponseEntity<Object> getAllOrders() {
-        ResponseEntity<Object> responseEntity = null;
-        try {
+    @GetMapping
+    @Async
+    public CompletableFuture<ResponseEntity<List<OrderModel>>> getAllOrders() {
+        return CompletableFuture.supplyAsync(() -> {
             List<OrderModel> orders = orderService.findAllOrder();
-            responseEntity = ResponseEntity.ok(orders);
-        } catch (Exception e) {
-            responseEntity = ResponseEntity.badRequest().body(e.getMessage());
-        }
-        return responseEntity;
+            System.out.println(orders);
+            if (!orders.isEmpty()) {
+                return ResponseEntity.ok(orders);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        });
     }
 
     @GetMapping("/admin/{username}")
@@ -39,6 +44,7 @@ public class OrderController {
         }
         return responseEntity;
     }
+
 
     @GetMapping("/{username}")
     public ResponseEntity<Object> getOrderByUsername(@PathVariable String username) {
