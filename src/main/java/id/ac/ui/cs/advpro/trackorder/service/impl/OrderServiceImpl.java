@@ -57,6 +57,11 @@ public class OrderServiceImpl implements OrderService {
         return repository.findByTransactionId(transactionId);
     }
 
+    @Override
+    public List<OrderModel> findByProductIdAndAmountGreaterThan(long productId, long remainder) {
+        return repository.findByProductIdAndAmountGreaterThan(productId, remainder);
+    }
+
     //U(pdate)
     @Override
     public OrderModel updateOrder(OrderModel transaction) {
