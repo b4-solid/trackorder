@@ -3,19 +3,21 @@ package id.ac.ui.cs.advpro.trackorder.service;
 import java.util.List;
 import java.util.Optional;
 
-import id.ac.ui.cs.advpro.trackorder.models.Order;
+import id.ac.ui.cs.advpro.trackorder.models.OrderModel;
 
 public interface OrderService {
 
     //C(reate)
-    Order addOrder(Order order);
+    OrderModel addOrder(OrderModel order);
 
     //R(ead)
-    List<Order> findAllOrder();
-    Optional<Order> findById(Long id);
+    List<OrderModel> findAllOrder();
+    Optional<OrderModel> findById(Long id);
+    List<OrderModel> findByUsername(String username);
+    List<OrderModel> findByTransactionId(String transactionId);
 
     //U(pdate)
-    Order updateOrder(Order order);
+    OrderModel updateOrder(OrderModel order);
 
     //D(elete)
     void deleteOrder(Long id);

@@ -1,7 +1,9 @@
 package id.ac.ui.cs.advpro.trackorder.service;
 
-import id.ac.ui.cs.advpro.trackorder.models.Order;
+import id.ac.ui.cs.advpro.trackorder.models.OrderModel;
 import id.ac.ui.cs.advpro.trackorder.repository.OrderRepository;
+import id.ac.ui.cs.advpro.trackorder.service.impl.OrderServiceImpl;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,10 +32,10 @@ public class OrderServiceTests {
 
     @Test
     public void testAddOrder() {
-        Order order = new Order();
+        OrderModel order = new OrderModel();
         when(orderRepository.save(order)).thenReturn(order);
 
-        Order result = orderService.addOrder(order);
+        OrderModel result = orderService.addOrder(order);
 
         assertNotNull(result);
         assertEquals(order, result);
@@ -42,10 +44,10 @@ public class OrderServiceTests {
 
     @Test
     public void testFindAllOrder() {
-        List<Order> orders = Arrays.asList(new Order(), new Order());
+        List<OrderModel> orders = Arrays.asList(new OrderModel(), new OrderModel());
         when(orderRepository.findAll()).thenReturn(orders);
 
-        List<Order> result = orderService.findAllOrder();
+        List<OrderModel> result = orderService.findAllOrder();
 
         assertNotNull(result);
         assertEquals(2, result.size());
@@ -56,10 +58,10 @@ public class OrderServiceTests {
     @Test
     public void testFindById() {
         Long orderId = 1L;
-        Order order = new Order();
+        OrderModel order = new OrderModel();
         when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
-        Optional<Order> result = orderService.findById(orderId);
+        Optional<OrderModel> result = orderService.findById(orderId);
 
         assertTrue(result.isPresent());
         assertEquals(order, result.get());
@@ -68,10 +70,10 @@ public class OrderServiceTests {
 
     @Test
     public void testUpdateOrder() {
-        Order order = new Order();
+        OrderModel order = new OrderModel();
         when(orderRepository.save(order)).thenReturn(order);
 
-        Order result = orderService.updateOrder(order);
+        OrderModel result = orderService.updateOrder(order);
 
         assertNotNull(result);
         assertEquals(order, result);
