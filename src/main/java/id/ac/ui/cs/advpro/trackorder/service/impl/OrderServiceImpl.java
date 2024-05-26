@@ -47,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
         return repository.findByUsername(username);
     }
 
+    @Override
+    public List<OrderModel> findByTransactionId(String transactionId) {
+        return repository.findByTransactionId(transactionId);
+    }
+
     //U(pdate)
     @Override
     public OrderModel updateOrder(OrderModel transaction) {

@@ -40,6 +40,18 @@ public class OrderController {
         return responseEntity;
     }
 
+    @GetMapping("/transaction/{transactionId}")
+    public ResponseEntity<Object> getOrderByTransactionId(@PathVariable String transactionId) {
+        ResponseEntity<Object> responseEntity = null;
+        try {
+            List<OrderModel> orders = orderService.findByTransactionId(transactionId);
+            responseEntity = ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            responseEntity = ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return responseEntity;
+    }
+
     @PostMapping()
     public ResponseEntity<Object> addOrder(@RequestBody OrderModel order) {
         ResponseEntity<Object> responseEntity = null;
