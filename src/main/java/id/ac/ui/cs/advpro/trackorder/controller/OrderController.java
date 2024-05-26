@@ -5,6 +5,7 @@ import id.ac.ui.cs.advpro.trackorder.models.OrderModel;
 import id.ac.ui.cs.advpro.trackorder.service.OrderService;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final OrderService orderService;
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
-
+    @Autowired
+    OrderService orderService;
 
     @GetMapping()
     public ResponseEntity<Object> getAllOrders() {
@@ -31,7 +28,7 @@ public class OrderController {
         return responseEntity;
     }
 
-    @GetMapping("/user/{username}")
+    @GetMapping("/admin/{username}")
     public ResponseEntity<Object> getOrderByUsernameAdmin(@PathVariable String username) {
         ResponseEntity<Object> responseEntity = null;
         try {
