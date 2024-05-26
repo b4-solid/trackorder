@@ -7,12 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 public class TrackorderApplicationTests {
-
-    @Test
-    public void contextLoads() {
-        // This test ensures that the Spring application context is loaded successfully
-    }
-
     @Test
     public void applicationStarts() {
         TrackorderApplication.main(new String[] {});
