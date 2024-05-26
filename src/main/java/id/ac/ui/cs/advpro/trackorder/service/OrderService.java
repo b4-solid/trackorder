@@ -16,6 +16,7 @@ public interface OrderService {
     List<OrderModel> findByUsername(String username);
     List<OrderModel> findByUsernameAdmin(String username);
     List<OrderModel> findByTransactionId(String transactionId);
+    List<OrderModel> findByProductIdAndAmountGreaterThan(long productId, long remainder);
 
     //U(pdate)
     OrderModel updateOrder(OrderModel order);
